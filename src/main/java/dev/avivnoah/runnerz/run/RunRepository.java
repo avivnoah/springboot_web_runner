@@ -3,6 +3,7 @@ package dev.avivnoah.runnerz.run;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -24,6 +25,16 @@ public class RunRepository {
 
     void create(Run run){
         runs.add(run);
+    }
+    void update(Run run, Integer id){
+        Optional<Run> existingRun = findById(id);
+        if(existingRun.isPresent()){
+            runs.set(runs.indexOf(existingRun.get()), run);
+        }
+    }
+
+    void delete(Integer id){
+        runs.removeIf(run -> run.id().equals(id));
     }
 
 
